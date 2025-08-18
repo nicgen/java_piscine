@@ -5,26 +5,28 @@ public class CleanExtract {
         }
 
         String[] parts = s.split("\\|");
-        StringBuilder result = new StringBuilder();
+        StringBuilder out = new StringBuilder();
 
-        for (String rawPart : parts) {
-            String part = rawPart;
+        for (String part : parts) {
+            // Keep original spacing to locate dots correctly
             int firstDot = part.indexOf('.');
             int lastDot = part.lastIndexOf('.');
 
-            if (firstDot == -1 || lastDot == -1 || firstDot == lastDot) {
-                continue;
+            String cleaned;
+            // If there are at least two dots, take what's between them
+            if (firstDot != -1 && lastDot != -1 && firstDot < lastDot) {
+                cleaned = part.substring(firstDot + 1, lastDot).trim();
+            } else {
+                // Otherwise, use the trimmed whole substring
+                cleaned = part.trim();
             }
 
-            String between = part.substring(firstDot + 1, lastDot).trim();
-            if (!between.isEmpty()) {
-                if (result.length() > 0) {
-                    result.append(' ');
-                }
-                result.append(between);
+            if (!cleaned.isEmpty()) {
+                if (out.length() > 0) out.append(' ');
+                out.append(cleaned);
             }
         }
 
-        return result.toString();
+        return out.toString();
     }
 }
