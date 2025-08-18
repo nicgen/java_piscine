@@ -8,17 +8,14 @@ public class CleanExtract {
         StringBuilder out = new StringBuilder();
 
         for (String part : parts) {
-            // Keep original spacing to locate dots correctly
             int firstDot = part.indexOf('.');
             int lastDot = part.lastIndexOf('.');
 
             String cleaned;
-            // If there are at least two dots, take what's between them
             if (firstDot != -1 && lastDot != -1 && firstDot < lastDot) {
                 cleaned = part.substring(firstDot + 1, lastDot).trim();
             } else {
-                // Otherwise, use the trimmed whole substring
-                cleaned = part.trim();
+                cleaned = part.trim().replaceAll("^\\.+|\\.+$", "").trim();
             }
 
             if (!cleaned.isEmpty()) {
