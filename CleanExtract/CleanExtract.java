@@ -1,29 +1,24 @@
 public class CleanExtract {
     public static String extract(String s) {
-        if (s == null) {
-            throw new IllegalArgumentException("Input must not be null");
-        }
+        String[] arr = s.split("\\|");
+        StringBuilder result = new StringBuilder();
 
-        String[] parts = s.split("\\|");
-        StringBuilder out = new StringBuilder();
+        for (String str : arr) {
+            str = str.trim();
+            int first = str.indexOf(".");
+            int last = str.lastIndexOf(".");
 
-        for (String part : parts) {
-            int firstDot = part.indexOf('.');
-            int lastDot = part.lastIndexOf('.');
-
-            String cleaned;
-            if (firstDot != -1 && lastDot != -1 && firstDot < lastDot) {
-                cleaned = part.substring(firstDot + 1, lastDot).trim();
-            } else {
-                cleaned = part.trim().replaceAll("^\\.+|\\.+$", "").trim();
-            }
-
-            if (!cleaned.isEmpty()) {
-                if (out.length() > 0) out.append(' ');
-                out.append(cleaned);
+            if (first != -1 && last != -1 && first < last) {
+                result.append(str.substring(first + 1, last)).append(" ");
+            } else if (first != -1 && last == first) {
+                result.append(str.substring(first + 1)).append(" ");
+            } else if (first == -1 && last != -1) {
+                result.append(str.substring(0, last)).append(" ");
+            } else if (first == -1 && last == -1) {
+                result.append(str).append(" ");
             }
         }
 
-        return out.toString();
+        return result.toString().replaceAll("\\s+", " ").trim();
     }
 }
