@@ -1,38 +1,43 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.util.logging.*;
 
 public class Capitalize {
+    private static final Logger logger = Logger.getLogger(Capitalize.class.getName());
+
     public static void capitalize(String[] args) throws IOException {
-        if (args == null || args.length < 2) {
+        if (args.length != 2) {
+            logger.log(Level.SEVERE, "Usage: java Capitalize <inputFile> <outputFile>");
             return;
         }
-        String inputPath = args[0];
-        String outputPath = args[1];
 
-        try (
-                Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(inputPath), StandardCharsets.UTF_8));
-                Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputPath), StandardCharsets.UTF_8))
-        ) {
-            int codePoint;
-            boolean startOfWord = true;
+        String inputFile = args[0];
+        String outputFile = args[1];
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
 
-            while ((codePoint = reader.read()) != -1) {
-                char ch = (char) codePoint;
-
-                if (Character.isLetter(ch)) {
-                    if (startOfWord) {
-                        ch = Character.toUpperCase(ch);
-                    } else {
-                        ch = Character.toLowerCase(ch);
-                    }
-                    startOfWord = false;
-                } else {
-                    // Any non-letter character breaks the word
-                    startOfWord = true;
-                }
-
-                writer.write(ch);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String capitalizedLine = capitalizeLine(line);
+                writer.write(capitalizedLine);
+                writer.newLine();
             }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error while reading/writing file", e);
         }
     }
+
+    public static String capitalizeLine(String line) {
+        String[] words = line.split("\\s+");
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                result.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1).toLowerCase()).append(" ");
+            }
+        }
+
+        return result.toString().trim(); // Remove trailing space
+    }
+
 }
