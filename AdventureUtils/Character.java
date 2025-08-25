@@ -4,7 +4,7 @@ import java.util.List;
 public class Character {
     private static final List<Character> allCharacters = new ArrayList<>();
 
-    private int maxHealth;
+    private final int maxHealth;
     private int currentHealth;
     private final String name;
 
