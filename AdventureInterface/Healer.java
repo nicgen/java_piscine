@@ -1,4 +1,4 @@
-public interface Tank {
+public interface Healer {
     void heal(Character target);
     int intgetHealCapacity();
 }
