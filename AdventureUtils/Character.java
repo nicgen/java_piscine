@@ -4,9 +4,9 @@ import java.util.List;
 public class Character {
     private static final List<Character> allCharacters = new ArrayList<>();
 
-    private final int maxHealth;
+    private int maxHealth;
     private int currentHealth;
-    private final String name;
+    private String name;
 
     public Character(String name, int maxHealth) {
         this.name = name;
