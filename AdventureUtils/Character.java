@@ -6,7 +6,7 @@ public class Character {
 
     private int maxHealth;
     private int currentHealth;
-    private String name;
+    private final String name;
 
     public Character(String name, int maxHealth) {
         this.name = name;
