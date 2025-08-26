@@ -14,9 +14,7 @@ public class Sorcerer extends Character implements Healer {
     @Override
     public void heal(Character target) {
         if (target == null) return;
-        int healed = Math.min(target.getMaxHealth(), target.getCurrentHealth() + healCapacity);
-        // currentHealth is updated thanks to Character's protected visibility
-        target.currentHealth = healed;
+        target.receiveHeal(healCapacity);
     }
 
     @Override

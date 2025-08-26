@@ -5,7 +5,7 @@ public class Character {
     private static List<Character> allCharacters = new ArrayList<>();
 
     private final int maxHealth;
-    protected int currentHealth; // made protected so subclasses (e.g., Sorcerer) can update it
+    private int currentHealth; // stays private
     private final String name;
 
     public Character(String name, int maxHealth) {
@@ -27,6 +27,14 @@ public class Character {
 
     public String getName() {
         return name;
+    }
+
+    // New: safe healing API while keeping currentHealth private
+    public void receiveHeal(int amount) {
+        if (amount <= 0) {
+            return;
+        }
+        currentHealth = Math.min(maxHealth, currentHealth + amount);
     }
 
     public void takeDamage(int amount) {
