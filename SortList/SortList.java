@@ -6,7 +6,7 @@ public class SortList {
 
     public static List<Integer> sort(List<Integer> list) {
         if (list == null) {
-            throw new IllegalArgumentException("Input list cannot be null");
+            return null;
         }
         List<Integer> mutableList = new ArrayList<>(list); // Create a mutable copy
         Collections.sort(mutableList);
@@ -15,7 +15,7 @@ public class SortList {
 
     public static List<Integer> sortReverse(List<Integer> list) {
         if (list == null) {
-            throw new IllegalArgumentException("Input list cannot be null");
+            return null;
         }
         List<Integer> mutableList = new ArrayList<>(list); // Create a mutable copy
         Collections.sort(mutableList, Collections.reverseOrder());
