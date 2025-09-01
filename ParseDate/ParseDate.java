@@ -9,15 +9,24 @@ import java.util.regex.Pattern;
 public class ParseDate {
 
     public static LocalDateTime parseIsoFormat(String stringDate) {
+        if (stringDate == null || stringDate.isBlank()) {
+            throw new IllegalArgumentException("stringDate must not be null or blank for ISO parsing");
+        }
         return LocalDateTime.parse(stringDate);
     }
 
     public static LocalDate parseFullTextFormat(String stringDate) {
+        if (stringDate == null || stringDate.isBlank()) {
+            throw new IllegalArgumentException("stringDate must not be null or blank for full text parsing");
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE d MMMM uuuu", Locale.FRENCH);
         return LocalDate.parse(stringDate, formatter);
     }
 
     public static LocalTime parseTimeFormat(String stringDate) {
+        if (stringDate == null || stringDate.isBlank()) {
+            throw new IllegalArgumentException("stringDate must not be null or blank for time parsing");
+        }
         // Extract hours, minutes, seconds
         Matcher m = Pattern.compile("(\\d{1,2}).*?(\\d{1,2}).*?(\\d{1,2})").matcher(stringDate);
         if (!m.find()) {
