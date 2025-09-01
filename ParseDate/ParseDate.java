@@ -17,7 +17,7 @@ public class ParseDate {
 
     public static LocalDate parseFullTextFormat(String stringDate) {
         if (stringDate == null || stringDate.isBlank()) {
-            return  null
+            return  null;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE d MMMM uuuu", Locale.FRENCH);
         return LocalDate.parse(stringDate, formatter);
@@ -25,7 +25,7 @@ public class ParseDate {
 
     public static LocalTime parseTimeFormat(String stringDate) {
         if (stringDate == null || stringDate.isBlank()) {
-            return  null
+            return  null;
         }
         // Extract hours, minutes, seconds
         Matcher m = Pattern.compile("(\\d{1,2}).*?(\\d{1,2}).*?(\\d{1,2})").matcher(stringDate);
