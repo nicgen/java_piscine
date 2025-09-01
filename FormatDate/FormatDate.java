@@ -29,7 +29,7 @@ public class FormatDate {
         if (time == null) {
             return null;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss.n");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         return time.format(formatter);
     }
 
